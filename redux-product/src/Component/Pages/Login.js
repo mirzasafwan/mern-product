@@ -1,33 +1,87 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+// Define an initial state
+const initialState = {
+  form: {
+    email: "",
+    password: "",
+  },
+  errorMessage: "",
+  isPasswordVisible: false, // Add a state for password visibility
+};
+
+// Define reducer action types
+const actionTypes = {
+  SET_FIELD: "SET_FIELD",
+  SET_ERROR_MESSAGE: "SET_ERROR_MESSAGE",
+  TOGGLE_PASSWORD_VISIBILITY: "TOGGLE_PASSWORD_VISIBILITY", // Add a new action type
+};
+
+// Define a reducer function
+const reducer = (state, action) => {
+  switch (action.type) {
+    case actionTypes.SET_FIELD:
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          [action.fieldName]: action.fieldValue,
+        },
+      };
+    case actionTypes.SET_ERROR_MESSAGE:
+      return {
+        ...state,
+        errorMessage: action.errorMessage,
+      };
+    case actionTypes.TOGGLE_PASSWORD_VISIBILITY: // Handle the new action type
+      return {
+        ...state,
+        isPasswordVisible: !state.isPasswordVisible,
+      };
+    default:
+      return state;
+  }
+};
+
 const Login = () => {
-  //   const { dispatch } = useContext(UseContext);
-  const [form, setForm] = useState({ email: "", password: "" });
-  const [errorMessage, setErrorMessage] = useState("");
+  // Initialize the useReducer hook
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((prevForm) => ({ ...prevForm, [name]: value }));
+    // Dispatch an action to update the field in the form
+    dispatch({
+      type: actionTypes.SET_FIELD,
+      fieldName: name,
+      fieldValue: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.email || !form.password) {
-      setErrorMessage("Please fill in all fields");
+    if (!state.form.email || !state.form.password) {
+      // Dispatch an action to set the error message
+      dispatch({
+        type: actionTypes.SET_ERROR_MESSAGE,
+        errorMessage: "Please fill in all fields",
+      });
       setTimeout(() => {
-        setErrorMessage("");
+        // Dispatch an action to clear the error message
+        dispatch({ type: actionTypes.SET_ERROR_MESSAGE, errorMessage: "" });
       }, 1200);
       return;
     }
+    // https://mern-product-backend.vercel.app/login
     // http://localhost:3000/login
     try {
       const response = await fetch(
         "https://mern-product-backend.vercel.app/login",
         {
           method: "POST",
-          body: JSON.stringify(form),
+          body: JSON.stringify(state.form),
           headers: {
             "Content-type": "application/json",
           },
@@ -36,22 +90,35 @@ const Login = () => {
       const data = await response.json();
 
       if (response.status === 200) {
-        // dispatch({ type: "USER", payload: data.user });
         const { token } = data;
         console.log(token);
-        // Store the token in localStorage
         localStorage.setItem("token", token);
         navigate("/");
         window.location.reload();
       } else {
-        setErrorMessage(data.msg);
+        // Dispatch an action to set the error message
+        dispatch({
+          type: actionTypes.SET_ERROR_MESSAGE,
+          errorMessage: data.msg,
+        });
         setTimeout(() => {
-          setErrorMessage("");
+          // Dispatch an action to clear the error message
+          dispatch({ type: actionTypes.SET_ERROR_MESSAGE, errorMessage: "" });
         }, 1200);
       }
     } catch (error) {
-      setErrorMessage("Something went wrong: " + error.message);
+      // Dispatch an action to set the error message
+      dispatch({
+        type: actionTypes.SET_ERROR_MESSAGE,
+        errorMessage: "Something Went Wrong: ",
+      });
     }
+  };
+
+  // Function to toggle password visibility
+  const togglePasswordVisibility = () => {
+    // Dispatch an action to toggle password visibility
+    dispatch({ type: actionTypes.TOGGLE_PASSWORD_VISIBILITY });
   };
 
   return (
@@ -70,7 +137,7 @@ const Login = () => {
               name="email"
               id="email"
               className="form-control"
-              value={form.email}
+              value={state.form.email}
               onChange={handleChange}
             />
           </div>
@@ -78,14 +145,23 @@ const Login = () => {
             <label className="form-label" htmlFor="password">
               Password
             </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              className="form-control"
-              value={form.password}
-              onChange={handleChange}
-            />
+            <div className="input-group">
+              <input
+                type={state.isPasswordVisible ? "text" : "password"} // Toggle between text and password
+                name="password"
+                id="password"
+                className="form-control"
+                value={state.form.password}
+                onChange={handleChange}
+              />
+              <button
+                type="button"
+                className="btn btn-outline-secondary"
+                onClick={togglePasswordVisibility}
+              >
+                {state.isPasswordVisible ? "Hide" : "Show"}
+              </button>
+            </div>
           </div>
 
           <button type="submit" className="btn btn-primary btn-block mb-2">
@@ -99,7 +175,9 @@ const Login = () => {
               </Link>
             </p>
           </div>
-          {errorMessage && <div className="error-message">{errorMessage}</div>}
+          {state.errorMessage && (
+            <div className="error-message">{state.errorMessage}</div>
+          )}
         </form>
       </div>
     </div>
