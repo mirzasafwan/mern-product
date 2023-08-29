@@ -16,13 +16,16 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://redux-backend.vercel.app/signin", {
-        method: "POST",
-        body: JSON.stringify(form),
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://mern-product-frontend.vercel.app/signin",
+        {
+          method: "POST",
+          body: JSON.stringify(form),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
 
       if (response.status === 200) {
         // Login successful

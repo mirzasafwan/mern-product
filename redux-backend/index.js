@@ -13,7 +13,7 @@ const PORT = process.env.PORT;
 const authRoutes = require("./routes/Auth");
 app.use(
   cors({
-    origin: ["https://redux-three-zeta.vercel.app/"],
+    origin: ["https://mern-product-frontend.vercel.app/"],
     methods: ["POST", "GET"],
     credentials: true,
   })

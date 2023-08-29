@@ -15,13 +15,16 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("https://redux-backend.vercel.app/signup", {
-      method: "POST",
-      body: JSON.stringify(form),
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "https://mern-product-frontend.vercel.app/signup",
+      {
+        method: "POST",
+        body: JSON.stringify(form),
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
 
     const data = await response.json();
 
