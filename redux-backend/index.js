@@ -11,16 +11,16 @@ const app = express();
 const PORT = process.env.PORT;
 
 const authRoutes = require("./routes/Auth");
-app.use(
-  cors({
-    origin: ["https://mern-product-frontend.vercel.app/"],
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["https://mern-product-frontend.vercel.app/"],
+//     methods: ["POST", "GET"],
+//     credentials: true,
+//   })
+// );
 
 app.use(express.json({ extended: false }));
-// app.use(cors());
+app.use(cors());
 app.use("/", authRoutes);
 
 // Routes
