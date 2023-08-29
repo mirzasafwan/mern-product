@@ -22,7 +22,7 @@ const Register = () => {
       }, 1200);
       return;
     }
-
+    // http://localhost:3000/signup
     const response = await fetch(
       "https://mern-product-backend.vercel.app/signup",
       {
@@ -46,7 +46,7 @@ const Register = () => {
       navigate("/");
       window.location.reload();
     } else {
-      setMessage(data.message);
+      setMessage(data.msg);
       setTimeout(() => {
         setMessage("");
       }, 1200);

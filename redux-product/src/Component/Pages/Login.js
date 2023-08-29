@@ -21,7 +21,7 @@ const Login = () => {
       }, 1200);
       return;
     }
-
+    // http://localhost:3000/login
     try {
       const response = await fetch(
         "https://mern-product-backend.vercel.app/login",
@@ -44,7 +44,7 @@ const Login = () => {
         navigate("/");
         window.location.reload();
       } else {
-        setErrorMessage(data.message);
+        setErrorMessage(data.msg);
         setTimeout(() => {
           setErrorMessage("");
         }, 1200);
