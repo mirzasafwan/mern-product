@@ -5,7 +5,7 @@ require("dotenv").config(); // Load environment variables from .env file
 const { connectDB } = require("./models/User");
 const express = require("express");
 const cors = require("cors");
-// const userRoute = require("./route/userRoute");
+const userRoute = require("./route/userRoute");
 const app = express();
 app.use(express.json({ extended: false }));
 app.use(cors());
