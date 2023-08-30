@@ -6,9 +6,7 @@ const cors = require("cors");
 const PORT = process.env.PORT;
 const { connectDB } = require("./models/User");
 const userRoute = require("./route/userRoute");
-
 const app = express();
-
 app.use(
   cors({
     origin: ["https://mern-product-frontend.vercel.app/"],
@@ -17,6 +15,7 @@ app.use(
   })
 );
 app.use(express.json());
+connectDB();
 
 app.use("/", userRoute);
 
@@ -28,7 +27,6 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server Started ${PORT}`);
-  connectDB();
 });
 
 // Start the server
