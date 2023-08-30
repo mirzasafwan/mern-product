@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 const NavbarPanel = () => {
   const token = localStorage.getItem("token");
+  const name = localStorage.getItem("name");
+
   const logout = async () => {
     try {
       localStorage.clear();
@@ -48,7 +50,7 @@ const NavbarPanel = () => {
           <Navbar.Collapse className="justify-content-end">
             <NavDropdown
               align={{ lg: "end" }}
-              title="user"
+              title={name || "User"}
               id="dropdown-menu-align-responsive-2"
             >
               <NavDropdown.Item to="/cart" as={Link}>

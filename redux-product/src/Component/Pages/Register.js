@@ -1,49 +1,12 @@
 import React, { useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { actionTypes, initialState, reducer } from "../../reducer/reducer";
 
 // Define reducer action types
-const actionTypes = {
-  SET_FIELD: "SET_FIELD",
-  SET_ERROR_MESSAGE: "SET_ERROR_MESSAGE",
-  TOGGLE_PASSWORD_VISIBILITY: "TOGGLE_PASSWORD_VISIBILITY",
-};
 
 // Define an initial state
-const initialState = {
-  form: {
-    name: "",
-    email: "",
-    password: "",
-  },
-  errorMessage: "",
-  isPasswordVisible: false,
-};
 
 // Define a reducer function
-const reducer = (state, action) => {
-  switch (action.type) {
-    case actionTypes.SET_FIELD:
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          [action.fieldName]: action.fieldValue,
-        },
-      };
-    case actionTypes.SET_ERROR_MESSAGE:
-      return {
-        ...state,
-        errorMessage: action.errorMessage,
-      };
-    case actionTypes.TOGGLE_PASSWORD_VISIBILITY:
-      return {
-        ...state,
-        isPasswordVisible: !state.isPasswordVisible,
-      };
-    default:
-      return state;
-  }
-};
 
 const Register = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -71,7 +34,7 @@ const Register = () => {
       });
       setTimeout(() => {
         dispatch({ type: actionTypes.SET_ERROR_MESSAGE, errorMessage: "" });
-      }, 1200);
+      }, 5000);
       return;
     }
 
@@ -83,14 +46,14 @@ const Register = () => {
       });
       setTimeout(() => {
         dispatch({ type: actionTypes.SET_ERROR_MESSAGE, errorMessage: "" });
-      }, 1200);
+      }, 5000);
       return;
     }
-    // https://mern-product-backend.vercel.app/signup
-    // http://localhost:8000/signup
+    // https://mern-product-backend.vercel.app/users/signup
+    // http://localhost:8000/users/signup
 
     const response = await fetch(
-      "https://mern-product-backend.vercel.app/signup",
+      "https://mern-product-backend.vercel.app/users/signup",
       {
         method: "POST",
         body: JSON.stringify(state.form),
@@ -104,8 +67,9 @@ const Register = () => {
 
     if (response.status === 200) {
       dispatch({ type: actionTypes.SET_ERROR_MESSAGE, errorMessage: data.msg });
-      const { token } = data;
+      const { token, name } = data;
       localStorage.setItem("token", token);
+      localStorage.setItem("name", name);
       navigate("/");
       window.location.reload();
     } else {

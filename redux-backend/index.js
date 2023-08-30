@@ -2,15 +2,14 @@ require("dotenv").config(); // Load environment variables from .env file
 
 // Now you can access environment variables using process.env
 
-const { User, connectDB } = require("./models/User");
+const { connectDB } = require("./models/User");
 const express = require("express");
 
 const cors = require("cors");
-
+const userRoute = require("./route/userRoute");
 const app = express();
 const PORT = process.env.PORT;
 
-const authRoutes = require("./routes/Auth");
 // app.use(
 //   cors({
 //     origin: ["https://mern-product-frontend.vercel.app/"],
@@ -21,12 +20,13 @@ const authRoutes = require("./routes/Auth");
 
 app.use(express.json({ extended: false }));
 app.use(cors());
-app.use("/", authRoutes);
+app.use("/users", userRoute);
 
 // Routes
 
 app.listen(PORT, () => {
   console.log(`Server Started ${PORT}`);
+  connectDB();
 });
 
 // Start the server

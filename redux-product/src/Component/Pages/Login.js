@@ -1,55 +1,12 @@
 import React, { useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-// Define an initial state
-const initialState = {
-  form: {
-    email: "",
-    password: "",
-  },
-  errorMessage: "",
-  isPasswordVisible: false, // Add a state for password visibility
-};
-
-// Define reducer action types
-const actionTypes = {
-  SET_FIELD: "SET_FIELD",
-  SET_ERROR_MESSAGE: "SET_ERROR_MESSAGE",
-  TOGGLE_PASSWORD_VISIBILITY: "TOGGLE_PASSWORD_VISIBILITY", // Add a new action type
-};
-
-// Define a reducer function
-const reducer = (state, action) => {
-  switch (action.type) {
-    case actionTypes.SET_FIELD:
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          [action.fieldName]: action.fieldValue,
-        },
-      };
-    case actionTypes.SET_ERROR_MESSAGE:
-      return {
-        ...state,
-        errorMessage: action.errorMessage,
-      };
-    case actionTypes.TOGGLE_PASSWORD_VISIBILITY: // Handle the new action type
-      return {
-        ...state,
-        isPasswordVisible: !state.isPasswordVisible,
-      };
-    default:
-      return state;
-  }
-};
+import { actionTypes, initialState, reducer } from "../../reducer/reducer";
 
 const Login = () => {
   // Initialize the useReducer hook
+
   const [state, dispatch] = useReducer(reducer, initialState);
-
   const navigate = useNavigate();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     // Dispatch an action to update the field in the form
@@ -71,14 +28,14 @@ const Login = () => {
       setTimeout(() => {
         // Dispatch an action to clear the error message
         dispatch({ type: actionTypes.SET_ERROR_MESSAGE, errorMessage: "" });
-      }, 1200);
+      }, 3000);
       return;
     }
-    // https://mern-product-backend.vercel.app/login
+    // https://mern-product-backend.vercel.app/users/login
     // http://localhost:8000/login
     try {
       const response = await fetch(
-        "https://mern-product-backend.vercel.app/login",
+        "https://mern-product-backend.vercel.app/users/login",
         {
           method: "POST",
           body: JSON.stringify(state.form),
@@ -90,11 +47,11 @@ const Login = () => {
       const data = await response.json();
 
       if (response.status === 200) {
-        const { token } = data;
-        console.log(token);
-        localStorage.setItem("token", token);
-        navigate("/");
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("name", data.name);
         window.location.reload();
+        navigate("/");
+        console.log(data);
       } else {
         // Dispatch an action to set the error message
         dispatch({
@@ -104,7 +61,7 @@ const Login = () => {
         setTimeout(() => {
           // Dispatch an action to clear the error message
           dispatch({ type: actionTypes.SET_ERROR_MESSAGE, errorMessage: "" });
-        }, 1200);
+        }, 3000);
       }
     } catch (error) {
       // Dispatch an action to set the error message
