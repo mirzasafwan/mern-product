@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 app.get("/", (req, res) => {
   res.json("hello");
 });
-// app.use("/", userRoute);
+app.use("/", userRoute);
 
 // Routes
 
