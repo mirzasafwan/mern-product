@@ -6,9 +6,11 @@ const cors = require("cors");
 const PORT = process.env.PORT;
 const { connectDB } = require("./models/User");
 const userRoute = require("./route/userRoute");
-app.use("/", userRoute);
+
 const app = express();
+
 app.use(cors());
+app.use("/", userRoute);
 
 app.use(express.json({ extended: false }));
 
