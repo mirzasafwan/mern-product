@@ -8,10 +8,10 @@ app.use(function (req, res, next) {
 });
 
 // Now you can access environment variables using process.env
-
-const { connectDB } = require("./models/User");
 const express = require("express");
 const cors = require("cors");
+const { connectDB } = require("./models/User");
+
 const userRoute = require("./route/userRoute");
 const app = express();
 app.use(express.json({ extended: false }));

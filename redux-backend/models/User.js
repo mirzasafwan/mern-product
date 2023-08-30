@@ -1,5 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const connectDB = async () => {
   try {
