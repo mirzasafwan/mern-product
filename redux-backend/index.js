@@ -7,6 +7,7 @@ const express = require("express");
 const cors = require("cors");
 const userRoute = require("./route/userRoute");
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT;
 
 // app.use((req, res, next) => {
@@ -20,7 +21,7 @@ const PORT = process.env.PORT;
 // });
 
 app.use(express.json({ extended: false }));
-app.use(cors());
+
 app.use("/", userRoute);
 
 // Routes
