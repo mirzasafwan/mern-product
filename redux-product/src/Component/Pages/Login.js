@@ -31,8 +31,8 @@ const Login = () => {
       }, 3000);
       return;
     }
-    // https://mern-product-backend.vercel.app/login
-    // http://localhost:8000/login
+    // https://mern-product-backend.vercel.app/signin
+    // http://localhost:8000/signin
     try {
       const response = await fetch(
         "https://mern-product-backend.vercel.app/signin",
