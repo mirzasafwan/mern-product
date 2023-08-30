@@ -10,16 +10,16 @@ const userRoute = require("./route/userRoute");
 const app = express();
 const PORT = process.env.PORT;
 
-// app.use(
-//   cors({
-//     origin: ["https://mern-product-frontend.vercel.app/"],
-//     methods: ["POST", "GET"],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: ["https://mern-product-frontend.vercel.app/"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 
 app.use(express.json({ extended: false }));
-app.use(cors());
+// app.use(cors());
 app.use("/", userRoute);
 
 // Routes
