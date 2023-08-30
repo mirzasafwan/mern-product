@@ -20,7 +20,7 @@ const PORT = process.env.PORT;
 
 app.use(express.json({ extended: false }));
 app.use(cors());
-app.use("/users", userRoute);
+app.use("/", userRoute);
 
 // Routes
 
