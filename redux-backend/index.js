@@ -2,10 +2,10 @@ require("dotenv").config(); // Load environment variables from .env file
 
 // Now you can access environment variables using process.env
 
-const { connectDB } = require("./models/User");
+// const { connectDB } = require("./models/User");
 const express = require("express");
 const cors = require("cors");
-const userRoute = require("./route/userRoute");
+// const userRoute = require("./route/userRoute");
 const app = express();
 app.use(cors());
 const PORT = process.env.PORT;
@@ -20,11 +20,11 @@ const PORT = process.env.PORT;
 //   next();
 // });
 
-app.use(express.json({ extended: false }));
+// app.use(express.json({ extended: false }));
 app.get("/", (req, res) => {
   res.json("hello");
 });
-app.use("/", userRoute);
+// app.use("/", userRoute);
 
 // Routes
 
