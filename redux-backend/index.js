@@ -6,16 +6,16 @@ const cors = require("cors");
 const PORT = process.env.PORT;
 const { connectDB } = require("./models/User");
 const userRoute = require("./route/userRoute");
+connectDB();
 const app = express();
 app.use(
   cors({
-    origin: ["https://mern-product-frontend.vercel.app/"],
+    origin: ["https://mern-product-frontend.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true,
   })
 );
 app.use(express.json());
-connectDB();
 
 app.use("/", userRoute);
 
