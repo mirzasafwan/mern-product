@@ -35,7 +35,7 @@ const Login = () => {
     // http://localhost:8000/login
     try {
       const response = await fetch(
-        "https://mern-product-backend.vercel.app/login",
+        "https://mern-product-backend.vercel.app/signin",
         {
           method: "POST",
           body: JSON.stringify(state.form),
