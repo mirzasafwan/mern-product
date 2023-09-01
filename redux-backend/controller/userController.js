@@ -29,17 +29,17 @@ const registeredUser = async (req, res) => {
 
     // Create and send JWT token
     const payload = {
-      user: user.id,
+      _id: user._id,
     };
     jwt.sign(
       payload,
-      "your-secret-key", // Use your secret key for signing the token
-      { expiresIn: 3600 }, // Token expiration time (adjust as needed)
+      process.env.JWT_SECRETE, // Use your secret key for signing the token
+      { expiresIn: "1h" }, // Token expiration time (adjust as needed)
       (err, token) => {
         if (err) throw err;
         const response = {
           token,
-          id: user.id,
+          _id: user._id,
           name: user.name,
           email: user.email,
         };
@@ -77,18 +77,18 @@ const userLoggedIn = async (req, res) => {
 
     // Create and send JWT token
     const payload = {
-      id: user.id,
+      _id: user._id,
     };
 
     jwt.sign(
       payload,
-      "your-secret-key", // Use your secret key for signing the token
-      { expiresIn: 1 }, // Token expiration time (adjust as needed)
+      process.env.JWT_SECRETE, // Use your secret key for signing the token
+      { expiresIn: "1h" }, // Token expiration time (adjust as needed)
       (err, token) => {
         if (err) throw err;
         const response = {
           token,
-          id: user.id,
+          _id: user._id,
           name: user.name,
           email: user.email,
         };

@@ -52,16 +52,13 @@ const Register = () => {
     // https://mern-product-backend.vercel.app/register
     // http://localhost:8000/register
 
-    const response = await fetch(
-      "https://mern-product-backend.vercel.app/signup",
-      {
-        method: "POST",
-        body: JSON.stringify(state.form),
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    );
+    const response = await fetch("http://localhost:8000/signup", {
+      method: "POST",
+      body: JSON.stringify(state.form),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
 
     const data = await response.json();
 
