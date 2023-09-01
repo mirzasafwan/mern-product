@@ -2,7 +2,7 @@ const { Todo } = require("../models/Todo");
 const asyncHandler = require("express-async-handler");
 
 const getList = asyncHandler(async (req, res) => {
-  const todo = await Todo.find({});
+  const todo = await Todo.find({ user: req.user._id });
   res.json(todo);
 });
 
