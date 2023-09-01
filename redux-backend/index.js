@@ -9,14 +9,14 @@ const userRoute = require("./route/userRoute");
 const todoRoute = require("./route/todoRoute");
 connectDB();
 const app = express();
-// app.use(
-//   cors({
-//     origin: ["https://mern-product-frontend.vercel.app"],
-//     methods: ["POST", "GET"],
-//     credentials: true,
-//   })
-// );
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://mern-product-frontend.vercel.app"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
+// app.use(cors());
 app.use(express.json());
 
 app.use("/", userRoute);
