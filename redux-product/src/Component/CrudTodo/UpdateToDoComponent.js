@@ -22,14 +22,19 @@ function UpdateToDoComponent({ todo, onUpdate }) {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/${todo._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(updatedTodo),
-      });
+      // https://mern-product-frontend.vercel.app/
+      // http://localhost:8000
+      const response = await fetch(
+        `https://mern-product-frontend.vercel.app/${todo._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(updatedTodo),
+        }
+      );
       if (response) {
         const data = await response.json();
         onUpdate(data); // Update the edited todo in the list

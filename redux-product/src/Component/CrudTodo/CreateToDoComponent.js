@@ -22,14 +22,19 @@ function CreateToDoComponent({ onCreate }) {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:8000/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(newTodo),
-      });
+      // http://localhost:8000/create
+      // https://mern-product-frontend.vercel.app/create
+      const response = await fetch(
+        "https://mern-product-frontend.vercel.app/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(newTodo),
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         onCreate(data); // Add the new todo to the list

@@ -10,13 +10,17 @@ function DeleteToDoComponent({ todo, onDelete }) {
   const handleDeleteTodo = async () => {
     try {
       console.log("Deleting todo with ID:", todo);
-
-      const response = await fetch(`http://localhost:8000/${todo._id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      // https://mern-product-frontend.vercel.app/
+      // http://localhost:8000
+      const response = await fetch(
+        `https://mern-product-frontend.vercel.app/${todo._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       if (response.ok) {
         onDelete(todo._id);
         handleClose();
