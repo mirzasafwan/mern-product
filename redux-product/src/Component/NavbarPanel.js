@@ -56,6 +56,9 @@ const NavbarPanel = () => {
               <NavDropdown.Item to="/cart" as={Link}>
                 Cart
               </NavDropdown.Item>
+              <NavDropdown.Item to="/todolist" as={Link}>
+                TodoList
+              </NavDropdown.Item>
               {token && ( // Only render the Logout item if a token exists
                 <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
               )}

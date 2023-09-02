@@ -6,6 +6,7 @@ import Login from "./Component/Pages/Login";
 import Register from "./Component/Pages/Register";
 import Product from "./Component/Product";
 import RootLayout from "./Component/RootLayout";
+import TodoList from "./Component/TodoList";
 
 export const UserProvider = createContext();
 function App() {
@@ -24,6 +25,7 @@ function App() {
               <Route element={<RootLayout />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/todolist" element={<TodoList />} />
                 <Route path="/product" element={<Product />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Route>
