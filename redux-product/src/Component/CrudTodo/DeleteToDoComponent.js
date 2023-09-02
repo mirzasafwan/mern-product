@@ -7,9 +7,26 @@ function DeleteToDoComponent({ todo, onDelete }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleDelete = () => {
-    onDelete(todo._id); // Delete the todo item
-    handleClose();
+  const handleDeleteTodo = async () => {
+    try {
+      console.log("Deleting todo with ID:", todo);
+
+      const response = await fetch(`http://localhost:8000/${todo._id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.ok) {
+        onDelete(todo._id);
+        handleClose();
+      } else {
+        // Handle the case when the delete request fails
+        console.error("Failed to delete todo.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -29,7 +46,7 @@ function DeleteToDoComponent({ todo, onDelete }) {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={handleDelete}>
+          <Button variant="danger" onClick={handleDeleteTodo}>
             Delete
           </Button>
         </Modal.Footer>

@@ -32,7 +32,6 @@ function TodoList() {
       prevActiveTodo === todoId ? null : todoId
     );
   };
-
   // Callback function to add a new to-do to the list
   const handleCreateTodo = (newTodo) => {
     setTodos([...todos, newTodo]);
@@ -80,11 +79,13 @@ function TodoList() {
                 <DeleteToDoComponent todo={todo} onDelete={handleDeleteTodo}>
                   Delete
                 </DeleteToDoComponent>
-                {/* <UpdateToDoComponent todo={todo} onUpdate={handleUpdateTodo} />
-                <DeleteToDoComponent todo={todo} onDelete={handleDeleteTodo} /> */}
               </Card.Header>
               {activeTodo === todo._id && (
-                <Card.Body>
+                <Card.Body
+                  className={
+                    activeTodo === todo._id ? "card-body expanded" : "card-body"
+                  }
+                >
                   <h4>
                     <Badge bg="success">{todo.category}</Badge>
                   </h4>

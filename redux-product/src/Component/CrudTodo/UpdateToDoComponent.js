@@ -30,7 +30,7 @@ function UpdateToDoComponent({ todo, onUpdate }) {
         },
         body: JSON.stringify(updatedTodo),
       });
-      if (response.ok) {
+      if (response) {
         const data = await response.json();
         onUpdate(data); // Update the edited todo in the list
         handleClose();
