@@ -12,10 +12,10 @@ function TodoList() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     // http://localhost:8000/
-    // https://mern-product-frontend.vercel.app/
+    // https://mern-product-backend.vercel.app/
 
     // Make a GET request to fetch todo items from your Express API
-    fetch("https://mern-product-frontend.vercel.app/", {
+    fetch("https://mern-product-backend.vercel.app/", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

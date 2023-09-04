@@ -10,10 +10,10 @@ function DeleteToDoComponent({ todo, onDelete }) {
   const handleDeleteTodo = async () => {
     try {
       console.log("Deleting todo with ID:", todo);
-      // https://mern-product-frontend.vercel.app/
+      //https://mern-product-backend.vercel.app
       // http://localhost:8000
       const response = await fetch(
-        `https://mern-product-frontend.vercel.app/${todo._id}`,
+        `https://mern-product-backend.vercel.app/${todo._id}`,
         {
           method: "DELETE",
           headers: {
