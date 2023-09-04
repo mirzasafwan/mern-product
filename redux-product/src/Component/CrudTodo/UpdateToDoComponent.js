@@ -25,7 +25,7 @@ function UpdateToDoComponent({ todo, onUpdate }) {
       // https://mern-product-backend.vercel.app/
       // http://localhost:8000
       const response = await fetch(
-        `fetch://mern-product-backend.vercel.app/${todo._id}`,
+        `https://mern-product-backend.vercel.app/${todo._id}`,
         {
           method: "PUT",
           headers: {
