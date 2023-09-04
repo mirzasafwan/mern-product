@@ -34,7 +34,7 @@ const registeredUser = async (req, res) => {
     jwt.sign(
       payload,
       process.env.JWT_SECRETE, // Use your secret key for signing the token
-      { expiresIn: "1m" }, // Token expiration time (adjust as needed)
+      { expiresIn: "15d" }, // Token expiration time (adjust as needed)
       (err, token) => {
         if (err) throw err;
         const response = {
@@ -47,8 +47,10 @@ const registeredUser = async (req, res) => {
       }
     );
   } catch (err) {
-    console.error(err.message);
-    res.redirect("http://localhost:3000/signin");
+    // console.error(err.message);
+    res.status(401).json({
+      message: "Unauthorized",
+    });
   }
 };
 
@@ -83,7 +85,7 @@ const userLoggedIn = async (req, res) => {
     jwt.sign(
       payload,
       process.env.JWT_SECRETE, // Use your secret key for signing the token
-      { expiresIn: "1m" }, // Token expiration time (adjust as needed)
+      { expiresIn: "15d" }, // Token expiration time (adjust as needed)
       (err, token) => {
         if (err) throw err;
         const response = {
