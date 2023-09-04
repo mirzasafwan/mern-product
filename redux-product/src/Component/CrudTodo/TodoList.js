@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Badge, Card, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CreateToDoComponent from "./CreateToDoComponent";
 import DeleteToDoComponent from "./DeleteToDoComponent";
 import UpdateToDoComponent from "./UpdateToDoComponent";
@@ -8,20 +8,34 @@ import UpdateToDoComponent from "./UpdateToDoComponent";
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [activeTodo, setActiveTodo] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
+    // http://localhost:8000/
+    // https://mern-product-frontend.vercel.app/
+
     // Make a GET request to fetch todo items from your Express API
-    fetch("http://localhost:8000/", {
+    fetch("https://mern-product-frontend.vercel.app/", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200) {
+          // Only proceed if the response status is 200 (OK)
+          return response.json();
+        } else {
+          localStorage.clear();
+          // Handle other status codes (e.g., 401 unauthorized) as needed
+          navigate("/signin");
+          window.location.reload();
+          throw new Error("Invalid token or server error");
+        }
+      })
       .then((data) => setTodos(data))
-      .catch((error) => console.error(error));
-  }, []);
+      .catch((error) => navigate("/signin"));
+  }, [navigate]);
 
   const cardStyle = {
     textDecoration: "none", // Remove underline from the card header
