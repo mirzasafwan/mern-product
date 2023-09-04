@@ -34,13 +34,16 @@ const Login = () => {
     // https://mern-product-backend.vercel.app/signin
     // http://localhost:8000/signin
     try {
-      const response = await fetch("http://localhost:8000/signin", {
-        method: "POST",
-        body: JSON.stringify(state.form),
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://mern-product-backend.vercel.app/signin",
+        {
+          method: "POST",
+          body: JSON.stringify(state.form),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
 
       if (response.status === 200) {
