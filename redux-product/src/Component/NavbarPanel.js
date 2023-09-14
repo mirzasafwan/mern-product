@@ -23,7 +23,7 @@ const NavbarPanel = () => {
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container fluid>
           <Navbar.Brand to="/" as={Link}>
-            {isAdmin && isAdmin ? `Admin Dashboard` : "E-Com"}
+            {isAdmin && isAdmin ? `Admin Dashboard` : "TechSkills"}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

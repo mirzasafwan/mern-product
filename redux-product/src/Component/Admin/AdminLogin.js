@@ -157,15 +157,18 @@ const AdminLogin = () => {
                             {state.errorMessage}
                           </div>
                         )}
-                        {/* <a className="text-muted" href="#!">
-                        Forgot password?
-                      </a> */}
+                        <Link
+                          to="/signin"
+                          className="text-muted text-decoration-none"
+                        >
+                          Are you a Student
+                        </Link>
                       </div>
                       <div className="d-flex align-items-center justify-content-center pb-4">
-                        <p className="mb-0 me-2">If you are user login</p>
+                        {/* <p className="mb-0 me-2">If you are user login</p>
                         <Link to="/signin" className="btn btn-warning">
                           Sign In
-                        </Link>
+                        </Link> */}
                       </div>
                     </form>
                   </div>

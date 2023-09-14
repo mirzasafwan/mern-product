@@ -149,9 +149,12 @@ const Login = () => {
                             {state.errorMessage}
                           </div>
                         )}
-                        {/* <a className="text-muted" href="#!">
-                        Forgot password?
-                      </a> */}
+                        <Link
+                          to="/adminLogin"
+                          className="text-muted text-decoration-none"
+                        >
+                          Login to Admin
+                        </Link>
                       </div>
                       <div className="d-flex align-items-center justify-content-center pb-4">
                         <p className="mb-0 me-2">Don't have an account?</p>
