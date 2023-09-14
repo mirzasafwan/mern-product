@@ -3,8 +3,11 @@ import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const NavbarPanel = () => {
+  const adminToken = localStorage.getItem("adminToken");
+  const email = localStorage.getItem("email");
   const token = localStorage.getItem("token");
   const name = localStorage.getItem("name");
+  const isAdmin = adminToken !== null;
 
   const logout = async () => {
     try {
@@ -20,18 +23,23 @@ const NavbarPanel = () => {
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container fluid>
           <Navbar.Brand to="/" as={Link}>
-            E-Com
+            {isAdmin && isAdmin ? `Admin Dashboard` : "E-Com"}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link to="/dashboard" as={Link}>
-                Dashboard
-              </Nav.Link>
-              <Nav.Link to="/product" as={Link}>
-                Products
-              </Nav.Link>
-
+              {isAdmin && isAdmin ? (
+                ""
+              ) : (
+                <>
+                  <Nav.Link to="/todolist" as={Link}>
+                    Todo List
+                  </Nav.Link>
+                  {/* <Nav.Link to="/product" as={Link}>
+                    Products
+                  </Nav.Link> */}
+                </>
+              )}
               {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
@@ -50,17 +58,30 @@ const NavbarPanel = () => {
           <Navbar.Collapse className="justify-content-end">
             <NavDropdown
               align={{ lg: "end" }}
-              title={name || "User"}
+              title={name || email || "User"}
               id="dropdown-menu-align-responsive-2"
             >
-              <NavDropdown.Item to="/cart" as={Link}>
-                Cart
-              </NavDropdown.Item>
-              <NavDropdown.Item to="/todolist" as={Link}>
-                TodoList
-              </NavDropdown.Item>
-              {token && ( // Only render the Logout item if a token exists
+              {/* {isAdmin && isAdmin ? (
+                ""
+              ) : (
+                <>
+                  <NavDropdown.Item to="/cart" as={Link}>
+                    Cart
+                  </NavDropdown.Item>
+                  <NavDropdown.Item to="/todolist" as={Link}>
+                    TodoList
+                  </NavDropdown.Item>
+                </>
+              )} */}
+
+              {isAdmin && isAdmin ? ( // Only render the Logout item if a token exists
                 <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+              ) : token && token ? (
+                <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+              ) : (
+                <NavDropdown.Item to="/adminLogin" as={Link}>
+                  Admin
+                </NavDropdown.Item>
               )}
             </NavDropdown>
           </Navbar.Collapse>

@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -100,7 +100,7 @@ const userLoggedIn = async (req, res) => {
   } catch (err) {
     // console.error(err.message);
     res.status(401).json({
-      message: "Unauthorized",
+      msg: "Email Not Found",
     });
   }
 };

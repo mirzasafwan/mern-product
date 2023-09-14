@@ -109,7 +109,7 @@ function TodoList() {
                       <cite title="Source Title">
                         Updated at{" "}
                         {todo.updatedAt
-                          ? todo.updatedAt.substring(0, 10)
+                          ? todo.updatedAt.substring(0, 11)
                           : "N/A"}
                       </cite>
                     </footer>

@@ -7,6 +7,7 @@ const PORT = process.env.PORT;
 const { connectDB } = require("./config/dbcon");
 const userRoute = require("./route/userRoute");
 const todoRoute = require("./route/todoRoute");
+const adminRoute = require("./route/adminRoute");
 connectDB();
 const app = express();
 app.use(
@@ -18,7 +19,7 @@ app.use(
 );
 // app.use(cors());
 app.use(express.json());
-
+app.use("/", adminRoute);
 app.use("/", userRoute);
 app.use("/", todoRoute);
 

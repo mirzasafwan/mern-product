@@ -1,0 +1,13 @@
+/* @import "mdb-react-ui-kit/dist/css/mdb.min.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css"; */
+body {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1400px !important;
+  }
+}
+ul {
+  padding: 0;
+}

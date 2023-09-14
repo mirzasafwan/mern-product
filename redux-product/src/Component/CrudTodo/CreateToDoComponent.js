@@ -23,7 +23,7 @@ function CreateToDoComponent({ onCreate }) {
   const handleSubmit = async () => {
     try {
       // http://localhost:8000/create
-      // https://mern-product-frontend.vercel.app/create
+      // https://mern-product-backend.vercel.app/create
       const response = await fetch(
         "https://mern-product-backend.vercel.app/create",
         {
