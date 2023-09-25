@@ -15,7 +15,7 @@ const AdminPanel = () => {
     if (token) {
       // https://mern-product-backend.vercel.app/admin
       // http://localhost:8000/admin
-      fetch("http://localhost:8000/admin", {
+      fetch("https://mern-product-backend.vercel.app/admin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
