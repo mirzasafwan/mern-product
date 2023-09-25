@@ -10,14 +10,14 @@ const todoRoute = require("./route/todoRoute");
 const adminRoute = require("./route/adminRoute");
 connectDB();
 const app = express();
-// app.use(
-//   cors({
-//     origin: ["https://mern-product-frontend.vercel.app"],
-//     methods: ["POST", "GET", "PUT", "DELETE"],
-//     credentials: true,
-//   })
-// );
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://mern-product-frontend.vercel.app"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+// app.use(cors());
 app.use(express.json());
 app.use("/", adminRoute);
 app.use("/", userRoute);
