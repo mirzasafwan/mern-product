@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
@@ -17,7 +18,7 @@ function DeleteToDoComponent({ todo, onDelete }) {
         {
           method: "DELETE",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${Cookies.get("token")}`,
           },
         }
       );

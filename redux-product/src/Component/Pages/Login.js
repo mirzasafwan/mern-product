@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import User from "../../assets/user.png";
@@ -49,8 +50,8 @@ const Login = () => {
       const data = await response.json();
 
       if (response.status === 200) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("name", data.name);
+        Cookies.set("token", data.token);
+        Cookies.set("name", data.name);
         window.location.reload();
         navigate("/todolist");
         console.log(data);

@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Admin from "../../assets/admin.jpg";
@@ -39,24 +40,21 @@ const AdminLogin = () => {
     // https://mern-product-backend.vercel.app/admin/login
     // http://localhost:8000/admin/login
     try {
-      const response = await fetch(
-        "https://mern-product-backend.vercel.app/admin/login",
-        {
-          method: "POST",
-          body: JSON.stringify(state.form),
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("http://localhost:8000/admin/login", {
+        method: "POST",
+        body: JSON.stringify(state.form),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
       const data = await response.json();
 
       if (response.status === 200) {
-        localStorage.setItem("adminToken", data.token);
-        localStorage.setItem("email", data.email);
-        // localStorage.setItem("email", data.email);
-        navigate("/");
+        Cookies.set("adminToken", data.token);
+        Cookies.set("email", data.email);
+        // Cookies.set("email", data.email);
         window.location.href = "/adminPanel";
+        navigate("/");
 
         // console.log(data);
       } else {

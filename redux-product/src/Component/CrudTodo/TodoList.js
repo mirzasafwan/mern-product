@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Badge, Card, Container, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,12 +11,12 @@ function TodoList() {
   const [activeTodo, setActiveTodo] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    // http://localhost:8000/
+    const token = Cookies.get("token");
+    // http://localhost:8000
     // https://mern-product-backend.vercel.app/
 
     // Make a GET request to fetch todo items from your Express API
-    fetch("https://mern-product-backend.vercel.app/", {
+    fetch("https://mern-product-backend.vercel.app", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -26,10 +27,10 @@ function TodoList() {
           // Only proceed if the response status is 200 (OK)
           return response.json();
         } else {
-          localStorage.clear();
+          Cookies.remove();
           // Handle other status codes (e.g., 401 unauthorized) as needed
           navigate("/signin");
-          window.location.reload();
+          window.location.href = "/signin";
           throw new Error("Invalid token or server error");
         }
       })

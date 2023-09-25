@@ -64,7 +64,7 @@ const userLoggedIn = async (req, res) => {
   try {
     // Check if user exists
     const user = await User.findOne({ email });
-    console.log(user.id);
+    // console.log(user.id);
 
     if (!user) {
       return res.status(400).json({ msg: "User does not exist" });
@@ -95,6 +95,7 @@ const userLoggedIn = async (req, res) => {
           email: user.email,
         };
         res.json(response);
+        console.log(response);
       }
     );
   } catch (err) {

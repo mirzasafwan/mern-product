@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 
@@ -30,7 +31,7 @@ function CreateToDoComponent({ onCreate }) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${Cookies.get("token")}`,
           },
           body: JSON.stringify(newTodo),
         }

@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { MDBDataTable } from "mdbreact";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,12 +10,12 @@ const AdminPanel = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("adminToken"); // Replace with the actual token
+    const token = Cookies.get("adminToken"); // Replace with the actual token
     // console.log(token);
     if (token) {
       // https://mern-product-backend.vercel.app/admin
       // http://localhost:8000/admin
-      fetch("https://mern-product-backend.vercel.app/admin", {
+      fetch("http://localhost:8000/admin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,8 +33,6 @@ const AdminPanel = () => {
           setLoading(false);
         });
     } else {
-      console.log("token empty");
-
       navigate("/adminLogin");
       window.location.href = "/adminLogin";
     }

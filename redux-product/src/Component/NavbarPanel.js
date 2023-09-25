@@ -1,17 +1,21 @@
+import Cookies from "js-cookie";
 import React from "react";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const NavbarPanel = () => {
-  const adminToken = localStorage.getItem("adminToken");
-  const email = localStorage.getItem("email");
-  const token = localStorage.getItem("token");
-  const name = localStorage.getItem("name");
-  const isAdmin = adminToken !== null;
+  const adminToken = Cookies.get("adminToken");
+  const email = Cookies.get("email");
+  const token = Cookies.get("token");
+  const name = Cookies.get("name");
+  const isAdmin = adminToken !== undefined;
 
   const logout = async () => {
     try {
-      localStorage.clear();
+      const allCookieNames = Object.keys(Cookies.get());
+      allCookieNames.forEach((cookieName) => {
+        Cookies.remove(cookieName);
+      });
       console.log("Local storage cleared.");
       window.location.reload(); // Reload the page when the user logs out
     } catch (error) {

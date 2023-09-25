@@ -1,4 +1,5 @@
-import React from "react";
+import Cookies from "js-cookie";
+import React, { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AdminLogin from "./Component/Admin/AdminLogin";
 import AdminPanel from "./Component/Admin/AdminPanel";
@@ -11,15 +12,59 @@ import Product from "./Component/Product";
 import RootLayout from "./Component/RootLayout";
 
 const isAuthenticated = () => {
-  const token = localStorage.getItem("token");
-  return token !== null;
+  const token = Cookies.get("token");
+  return token !== undefined;
 };
 
 const isAdminAuthenticated = () => {
-  const adminToken = localStorage.getItem("adminToken");
-  return adminToken !== null;
+  const adminToken = Cookies.get("adminToken");
+  return adminToken !== undefined;
 };
 function App() {
+  const logoutAfterInactivity = () => {
+    const sessionTimeout = 3 * 60 * 1000; // 5 minutes in milliseconds
+    let logoutTimer;
+
+    // Reset the timer when the user interacts with the page
+    const resetLogoutTimer = () => {
+      clearTimeout(logoutTimer);
+      logoutTimer = setTimeout(logout, sessionTimeout);
+    };
+
+    // Logout function
+    const logout = () => {
+      // Clear cookies or perform logout actions as needed
+      // Redirect to the login page or perform any other necessary actions
+      // Replace '/signin' with your actual login route
+      const allCookieNames = Object.keys(Cookies.get());
+      allCookieNames.forEach((cookieName) => {
+        Cookies.remove(cookieName);
+      });
+      window.location.href = "/signin";
+    };
+
+    // Add event listeners to track user activity
+    const events = ["mousemove", "keydown", "mousedown", "touchstart"];
+    events.forEach((event) => {
+      document.addEventListener(event, resetLogoutTimer);
+    });
+
+    // Initialize the timer
+    resetLogoutTimer();
+  };
+
+  useEffect(() => {
+    // Start the session timeout when the component mounts
+    logoutAfterInactivity();
+
+    // Clean up event listeners when the component unmounts
+    return () => {
+      const events = ["mousemove", "keydown", "mousedown", "touchstart"];
+      events.forEach((event) => {
+        document.removeEventListener(event, logoutAfterInactivity);
+      });
+    };
+  }, []);
   return (
     <div>
       <BrowserRouter>
